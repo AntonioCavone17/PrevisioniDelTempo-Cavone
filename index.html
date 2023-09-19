@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Previsioni del Tempo - Cavone
+	</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <style>
+        #map {
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+	<div id="map"></div>
+
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+
+	<script type="text/javascript">
+        let latitudine = 41.895132079870194
+        let longitudine = 12.494442032988616
+
+
+        navigator.geolocation.getCurrentPosition(
+            function(event){
+                console.log("L'utente ha accettato")
+                console.log(event)
+                latitudine = event.coords.latitude
+                longitudine = event.coords.longitude
+                createMap()
+            },
+
+            function(event){
+                createMap()
+            }
+        )
+
+        function createMap(){
+            let map = L.map('map').setView([latitudine, longitudine], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+        }
+    </script>
+</body>
+</html>
